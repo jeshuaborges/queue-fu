@@ -1,0 +1,24 @@
+{
+  "name": "pocket-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1.45",
+    "bluebird": "^2.9.34",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "jscs": "^2.1.0",
+    "mocha": "^2.2.5",
+    "proxyquire": "^1.6.0",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  }
+}

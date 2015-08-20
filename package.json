@@ -1,8 +1,8 @@
 {
-  "name": "pocket-worker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "queue-fu",
+  "version": "0.0.1",
+  "description": "An abstract worker queue which includes support for Amazon SQS.",
+  "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/**/*.js"
   },

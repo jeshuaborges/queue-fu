@@ -78,14 +78,13 @@ describe('sqs/queue', function() {
     });
 
     it('sends and receives jobs from the queue', function(done) {
-      this.queue.pushWorker({
-        type: 'job-type',
-        execute: function(job) {
-          done();
-        },
+      this.queue.process('job-type', function(job) {
+        done();
       });
 
       this.queue.createJob('job-type', {}).save();
+
+      this.queue.start();
     });
 
     it('deletes jobs from the queue');

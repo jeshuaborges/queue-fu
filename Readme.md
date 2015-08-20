@@ -1,3 +1,9 @@
+## TODO:
+
+- Add Concurrency
+- Add Middleware pattern to worker call
+  - Prevent SQS duplication
+  - Call stats services
 
 ## Setup
 

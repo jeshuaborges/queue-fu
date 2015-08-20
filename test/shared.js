@@ -1,55 +1,58 @@
 var sinon = require('sinon');
 
 exports.shouldBehaveLikeAQueue = function() {
-  describe('shouldBehaveLikeAQueue', function() {
+  describe('behaves like a queue', function() {
     beforeEach(function() {
-      this.queue.reset();
+      this.worker = {
+        type: 'job-type',
+        execute: function() {},
+      };
     });
 
     it('calls back when a job is queued', function(done) {
-      var spy = sinon.spy();
-      this.queue.process('job-name', spy);
-      this.queue.create('job-name', {}).save();
-      var interval = setInterval(function() {
-        if (spy.called) {
-          clearInterval(interval);
+      this.queue.pushWorker({
+        type: 'job-type',
+        execute: function() {
           done();
-        }
-      }, 5);
+        },
+      });
+      this.queue.createJob('job-type', {}).save();
     });
 
     it('passes job with data back to the worker', function(done) {
-      var firstCalled;
-      this.queue.process('first', function(job) {
-        if (job.data === 'first-param') {
-          firstCalled = true;
-        }
+      this.queue.pushWorker({
+        type: 'job-type',
+        execute: function(job, jobDone) {
+          jobDone();
+          if (job.data === 'first-param') {
+            done();
+          }
+        },
       });
 
-      this.queue.create('first', 'first-param').save();
-
-      var interval = setInterval(function() {
-        if (firstCalled) {
-          clearInterval(interval);
-          done();
-        }
-      }, 5);
+      this.queue.createJob('job-type', 'first-param').save();
     });
 
     it('can have multiple queues', function(done) {
       var firstCalled;
       var secondCalled;
 
-      this.queue.process('first', function(job) {
-        if (job.data === 'first-param') firstCalled = true;
+      this.queue.pushWorker({
+        type: 'first',
+        execute: function(job) {
+          if (job.data === 'first-param') firstCalled = true;
+        },
       });
 
-      this.queue.process('second', function(job) {
-        if (job.data === 'second-param') secondCalled = true;
+      this.queue.pushWorker({
+        type: 'second',
+        execute: function(job) {
+          if (job.data === 'second-param') secondCalled = true;
+        },
       });
 
-      this.queue.create('first', 'first-param').save();
-      this.queue.create('second', 'second-param').save();
+      this.queue.createJob('first', 'first-param').save();
+      this.queue.createJob('second', 'second-param').save();
 
       var interval = setInterval(function() {
         if (firstCalled && secondCalled) {
@@ -59,9 +62,6 @@ exports.shouldBehaveLikeAQueue = function() {
       }, 5);
     });
 
-    it('can set concurrency', function() {
-      this.queue.concurrency(2);
-      this.queue.getConcurrency().should.equal(2);
-    });
+    it('can set concurrency');
   });
 };

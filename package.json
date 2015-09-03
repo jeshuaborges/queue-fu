@@ -1,10 +1,10 @@
 {
   "name": "queue-fu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An abstract worker queue which includes support for Amazon SQS.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/**/*.js"
+    "test": "./node_modules/mocha/bin/mocha test/**/*_test.js"
   },
   "author": "",
   "license": "ISC",

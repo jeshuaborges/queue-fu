@@ -32,5 +32,14 @@ describe('sqs/worker_collection', function() {
         this.subject.get('foo');
       }, this).should.throw(/does not exist/);
     });
+
+    it('matches workers with regular expression names', function() {
+      this.worker = {
+        type: /foo/,
+        execute: function() {},
+      };
+      this.subject.push(this.worker);
+      this.subject.get('foo').should.eq(this.worker);
+    });
   });
 });

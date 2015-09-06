@@ -1,6 +1,6 @@
 {
   "name": "queue-fu",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An abstract worker queue which includes support for Amazon SQS.",
   "main": "lib/index.js",
   "scripts": {

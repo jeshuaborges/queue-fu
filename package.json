@@ -4,9 +4,9 @@
   "description": "An abstract worker queue which includes support for Amazon SQS.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/**/*.js"
+    "test": "mocha test/**/*_test.js"
   },
-  "author": "",
+  "author": "Jeshua Borges",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1.45",

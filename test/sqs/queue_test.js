@@ -14,7 +14,7 @@ aws.config.apiVersions = {
 };
 
 var resetSqs = function(cb) {
-  request.del('http://localhost:4568/', function(error, response, body) {
+  request.del('http://127.0.0.1:4568/', function(error, response, body) {
     if (error) throw error;
 
     cb();
@@ -25,7 +25,7 @@ describe('sqs/queue', function() {
   beforeEach(function() {
     this.queue = new Queue();
     this.config = {
-      endpoint: 'http://localhost:4568/',
+      endpoint: 'http://127.0.0.1:4568/',
       queueName: 'queue-name',
       accessKeyId: 'access key id',
       secretAccessKey: 'secret access key',
@@ -47,7 +47,7 @@ describe('sqs/queue', function() {
 
     it('sets up the queueUrl', function() {
       this.queue.configure(this.config);
-      this.queue.config.queueUrl.should.equal('http://localhost:4568/queue-name');
+      this.queue.config.queueUrl.should.equal('http://127.0.0.1:4568/queue-name');
     });
 
     it('defaults interval', function() {

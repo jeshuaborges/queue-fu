@@ -1,9 +1,15 @@
 ## TODO:
 
+Inspiration: Kue
+
 - Add Concurrency
 - Add Middleware pattern to worker call
   - Prevent SQS duplication
-  - Call stats services
+  - Create hooks for stats callbacks
+    - Which stats services to connect to?
+- Logging
+  - Which lib to use?
+
 
 ## Setup
 
@@ -11,11 +17,21 @@
 $ npm install
 ```
 
+Sample worker:
+
+```javascript
+var Queue = require('queue-fu').MemoryQueue;
+
+new Queue().process('share-create', function(job, ctx, done) {
+  done();
+}).start();
+```
+
 Graceful shutdown
 
 ```javascript
 process.once('SIGTERM', function() {
-  queue.shutdown(;
+  queue.shutdown();
 });
 ```
 

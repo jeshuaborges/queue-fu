@@ -1,3 +1,7 @@
+dependencies:
+  post:
+    - bundle exec fake_sqs --daemonize --pid=.fake_sqs.pid:
+        background: true
 test:
-  override:
+  pre:
     - node_modules/jscs/bin/jscs lib test

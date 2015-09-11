@@ -12,7 +12,7 @@ exports.shouldBehaveLikeAQueue = function() {
     });
 
     it('passes job with data back to the worker', function(done) {
-      this.queue.process('job-type', function(job, jobDone) {
+      this.queue.process('job-type', function(job, ctx, jobDone) {
         jobDone();
         if (job.data === 'first-param') {
           done();

@@ -1,3 +1,4 @@
+var axios = require('axios');
 var chai = require('chai');
 var sinon = require('sinon');
 var aws = require('aws-sdk');
@@ -13,20 +14,15 @@ aws.config.apiVersions = {
   sqs: '2012-11-05',
 };
 
-var resetSqs = function(cb) {
-  request.del('http://127.0.0.1:4568/', function(error, response, body) {
-    if (error) throw error;
-
-    cb();
-  });
+var resetSqs = function() {
+  return axios.delete('http://127.0.0.1:4568/');
 };
 
 describe('sqs/queue', function() {
   beforeEach(function() {
     this.queue = new Queue();
     this.config = {
-      endpoint: 'http://127.0.0.1:4568/',
-      queueName: 'queue-name',
+      endpoint: 'http://127.0.0.1:4568/queue-name',
       accessKeyId: 'access key id',
       secretAccessKey: 'secret access key',
       region: 'region',
@@ -61,15 +57,22 @@ describe('sqs/queue', function() {
     beforeEach(function(done) {
       this.queue.configure(this.config);
 
-      var sqs = Promise.promisifyAll(new aws.SQS(this.config));
-      var queueName = this.config.queueName;
+      var sqs = Promise.promisifyAll(new aws.SQS({
+        endpoint: 'http://127.0.0.1:4568',
+        accessKeyId: 'access key id',
+        secretAccessKey: 'secret access key',
+        region: 'region',
+        interval: 5,
+      }));
 
-      resetSqs(function() {
-        sqs.createQueueAsync({
-          QueueName: queueName,
-        }).then(function() {
-          done();
+      var queueName = 'queue-name';
+
+      resetSqs().then(function() {
+        return sqs.createQueueAsync({
+          QueueName: 'queue-name',
         });
+      }).then(function() {
+        done();
       });
     });
 

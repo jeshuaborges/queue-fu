@@ -1,19 +1,20 @@
 {
   "name": "queue-fu",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "An abstract worker queue which includes support for Amazon SQS.",
   "main": "lib/index.js",
+  "private": true,
+  "author": "Pocket",
   "scripts": {
     "test": "mocha test/**/*_test.js"
   },
-  "author": "Jeshua Borges",
-  "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1.45",
     "bluebird": "^2.9.34",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
+    "axios": "^0.5.4",
     "chai": "^3.2.0",
     "jscs": "^2.1.0",
     "mocha": "^2.2.5",

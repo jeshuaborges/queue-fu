@@ -3,11 +3,11 @@
   "version": "0.0.4",
   "description": "An abstract worker queue which includes support for Amazon SQS.",
   "main": "lib/index.js",
+  "private": true,
+  "author": "Pocket",
   "scripts": {
     "test": "mocha test/**/*_test.js"
   },
-  "author": "Jeshua Borges",
-  "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1.45",
     "bluebird": "^2.9.34",

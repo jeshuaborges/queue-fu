@@ -16,6 +16,7 @@
   "devDependencies": {
     "axios": "^0.5.4",
     "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
     "jscs": "^2.1.0",
     "mocha": "^2.2.5",
     "proxyquire": "^1.6.0",

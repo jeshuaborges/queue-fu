@@ -24,24 +24,20 @@ exports.shouldBehaveLikeAQueue = function() {
     });
 
     it('can have multiple queues', function(done) {
-      var firstCalled;
-      var secondCalled;
+      var firstSpy = sinon.spy();
+      var secondSpy = sinon.spy();
 
-      this.queue.process('first', function(job) {
-        if (job.data === 'first-param') firstCalled = true;
-      });
-
-      this.queue.process('second', function(job) {
-        if (job.data === 'second-param') secondCalled = true;
-      });
+      this.queue.process('first', firstSpy);
+      this.queue.process('second', secondSpy);
 
       this.queue.createJob('first', 'first-param').save();
       this.queue.createJob('second', 'second-param').save();
 
-      this.queue.start();
+      this.queue.poll.step();
+      this.queue.poll.step();
 
       var interval = setInterval(function() {
-        if (firstCalled && secondCalled) {
+        if (firstSpy.called && secondSpy.called) {
           clearInterval(interval);
           done();
         }

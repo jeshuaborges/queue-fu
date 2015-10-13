@@ -27,6 +27,7 @@ describe('sqs/queue', function() {
       secretAccessKey: 'secret access key',
       region: 'region',
       interval: 5,
+      pollSeconds: 0,
     };
   });
 
@@ -44,6 +45,13 @@ describe('sqs/queue', function() {
     it('sets up the queueUrl', function() {
       this.queue.configure(this.config);
       this.queue.config.queueUrl.should.equal('http://127.0.0.1:4568/queue-name');
+    });
+
+    it('sets the WaitTimeSeconds from pollSeconds', function() {
+      this.queue.configure(this.config);
+      var receiveMessage = sinon.stub(this.queue.sqs, 'receiveMessage');
+      this.queue.getMessages();
+      receiveMessage.should.have.deep.property('args[0][0].WaitTimeSeconds', 0);
     });
 
     it('defaults interval', function() {

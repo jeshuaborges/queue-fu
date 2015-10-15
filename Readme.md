@@ -20,7 +20,7 @@ $ npm install
 Sample worker:
 
 ```javascript
-var Queue = require('queue-fu').MemoryQueue;
+var Queue = require('queue-fu')({type: 'memory'});
 
 new Queue().process('share-create', function(job, ctx, done) {
   done();
@@ -34,6 +34,21 @@ process.once('SIGTERM', function() {
   queue.shutdown();
 });
 ```
+
+### SQS Setup
+
+```javascript
+var Queue = require('queue-fu')({
+  type: 'sqs',
+  endpoint: 'https://sqs.us-east-1.amazonaws.com/996905175585/posted-items-share-dev',
+  accessKeyId: 'AKIAIL7...EH3Q',
+  secretAccessKey: '7ZkUbusHaJltz...dP2ZFODXmEaDM',
+  region: 'us-east-1',
+  interval: 1000, // Number of ms between one message poll and the next
+  pollSeconds: 20, // Number of seconds to wait for a message http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-long-polling.html
+});
+```
+
 
 ## Tests
 

@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 
 chai.should();
 
-describe('sqs/worker_collection', function() {
+describe('shared/worker_collection', function() {
   beforeEach(function() {
     this.subject = new WorkerCollection();
     this.worker = {

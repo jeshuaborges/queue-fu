@@ -57,7 +57,7 @@ describe('sqs/queue', function() {
     it('defaults interval', function() {
       delete(this.config.interval);
       this.queue.configure(this.config);
-      this.queue.config.interval.should.equal(1000);
+      this.queue.config.interval.should.equal(0);
     });
   });
 
